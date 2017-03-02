@@ -20,23 +20,7 @@
 	    <![endif]-->
 	</head>
 	<body>
-		<div class="container">
-	        <div class="card card-container">
-	            <p>Melde dich als Turnierleiter an.</p>
-	            <form class="form-signin" method="post" action="<c:url value='/manage/auth'/>">
-	                <input type="text" class="form-control" name="user" placeholder="Benutzername" required autofocus>
-	                <input type="password" class="form-control" name="password" placeholder="Passwort" required>
-	                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Login</button>
-	            </form>
-	            <hr>
-	            <p>Oder gib einen Turnier-Code ein um zur Turnierübersicht zu gelangen.</p>
-	            <form class="form-signin" method="post" action="<c:url value='/view/auth'/>">
-	                <input type="text" class="form-control" name="code" placeholder="Turnier-Code" required>
-	                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Zum Turnier</button>
-	            </form>
-	        </div>
-	    </div>
-	    <script src="<c:url value='/js/jquery-3.1.1.min.js'/>"></script>
-	    <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
-  	</body>
+		<h1>TMS</h1>
+		<a href="<c:url value='login'/>">Zum Login</a>
+	</body>
 </html>
