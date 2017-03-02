@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DashboardController {
 	@RequestMapping("/dashboard")
-	public static ModelAndView dashboard(HttpServletRequest request){
-		return new ModelAndView("leaderDashboard","username",request.getSession().getAttribute("username"));
+	public static ModelAndView dashboard(HttpServletRequest request) {
+		return new ModelAndView("leaderDashboard", "username", request.getSession().getAttribute("username"));
 	}
 }
