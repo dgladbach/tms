@@ -1,5 +1,10 @@
 package com.turnieransicht.controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -12,15 +17,65 @@ import com.turniermanager.sql.DBConnector;
 @Controller
 public class TournamentViewController {
 	@RequestMapping("/auth")
-	public ModelAndView tournamentViewForm(HttpServletRequest request){
-		//DBConnector dbc= new DBConnector();
-		String accesscode=request.getParameter("accesscode");
-		return new ModelAndView("tournamentView","view",accesscode);
+	public ModelAndView tournamentViewForm(HttpServletRequest request) {
+		String accesscode = request.getParameter("code");
+		return checkCode(accesscode, request);
+		
+	}
+
+	@RequestMapping("/view/{code}")
+	public ModelAndView tournamentViewUrl(HttpServletRequest request, @PathVariable("objectId") String accesscode) {
+		return checkCode(accesscode, request);
+	}
+
+	private ModelAndView checkCode(String code, HttpServletRequest request) {
+		DBConnector dbc = new DBConnector();
+		Connection conn = dbc.getConnection();
+		String tournamentId = null;
+		if (conn != null) {
+			try {
+				PreparedStatement ps = conn.prepareStatement("SELECT uuid FROM tournament WHERE accesscode=? LIMIT 1");
+				ps.setString(1, code);
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) {
+					tournamentId = rs.getString("uuid");
+				}
+				rs.close();
+				ps.close();
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (tournamentId != null) {
+			return prepareData(tournamentId);
+		} else {
+			return new ModelAndView("login", "view", "Der Code wurde nicht gefunden");
+		}
 	}
 	
-	@RequestMapping("/view/{code}")
-	public ModelAndView tournamentViewUrl(@PathVariable("objectId") String accesscode){
+	private ModelAndView prepareData(String tournamentId){
+		DBConnector dbc = new DBConnector();
+		Connection conn = dbc.getConnection();
 		
-		return new ModelAndView("tournamentView","view",accesscode);
+		if (conn != null) {
+			try {
+				PreparedStatement ps = conn.prepareStatement("SELECT * FROM match WHERE tournament=?");
+				ps.setString(1, tournamentId);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					tournamentId = rs.getString("uuid");
+				}
+				rs.close();
+				ps.close();
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return new ModelAndView("tournamentView", "view", tournamentId);
 	}
 }
