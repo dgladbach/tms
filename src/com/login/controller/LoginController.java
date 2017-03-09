@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.turniermanager.objekte.Leader;
 import com.turniermanager.sql.DBConnector;
 
 @Controller
@@ -57,12 +58,13 @@ public class LoginController {
 		boolean access = false;
 		if (conn != null) {
 			try {
-				PreparedStatement ps = conn.prepareStatement("SELECT password FROM leader WHERE loginname=?");
+				PreparedStatement ps = conn
+						.prepareStatement("SELECT password, name, loginname, uuid FROM leader WHERE loginname=?");
 				ps.setString(1, username);
 				ResultSet rs = ps.executeQuery();
 				if (rs.next() && BCrypt.checkpw(password, rs.getString("password"))) {
-					// TODO Nutzer in der Session einloggen
-					request.getSession().setAttribute("username", username);
+					Leader leader = new Leader(rs.getString("uuid"), rs.getString("name"), username);
+					request.getSession().setAttribute("leader", leader);
 					access = true;
 				}
 				rs.close();
