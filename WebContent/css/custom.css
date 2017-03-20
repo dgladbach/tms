@@ -1,0 +1,27 @@
+body{
+    background-color: #F2F2F2;
+}
+.team_container{
+    background-color: #595959;
+    border: 1px solid #F2762E;
+    border-radius: 5px;
+    max-height: 100px;
+    width: 300px;
+    overflow: hidden;
+    padding: 3px;
+    margin: 2px;
+}
+.team_image{
+    float: left;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #F2762E;
+    margin: 3px;
+}
+.team_text{
+    color: #F2F2F2;
+}
+.team_name{
+    font-size: 1.3em;
+    color: #F2762E;
+}

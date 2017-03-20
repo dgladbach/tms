@@ -13,6 +13,7 @@ public class Tournament {
 	private Timestamp cdate;
 	private ArrayList<Team> teamList;
 
+
 	/**
 	 * Create a tournament object with values from db
 	 * 
@@ -61,6 +62,7 @@ public class Tournament {
 	/**
 	 * Create a new tournament to store in db
 	 * 
+	 * @param uuid
 	 * @param name
 	 * @param owner
 	 * @param comment
@@ -74,7 +76,7 @@ public class Tournament {
 		this.uuid = uuid;
 	}
 
-	public String getUUID() {
+	public String getUuid() {
 		return this.uuid;
 	}
 

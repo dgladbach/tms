@@ -1,11 +1,6 @@
 package com.turniermanager.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,26 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.turniermanager.objekte.Leader;
+import com.turniermanager.objekte.Team;
 import com.turniermanager.objekte.Tournament;
-import com.turniermanager.sql.DBConnector;
+import com.turniermanager.sql.LeaderQueries;
 
 @Controller
 public class DashboardController {
 	@RequestMapping("/dashboard")
 	public static ModelAndView dashboard(HttpServletRequest request) {
 		Leader leader = (Leader) request.getSession().getAttribute("leader");
-		DBConnector dbc = new DBConnector();
-		Connection conn = dbc.getConnection();
-		List<Tournament> tournamentList = new ArrayList<Tournament>();
-		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM tournament WHERE owner=?");
-			ps.setString(1, leader.getUUID());
-			ResultSet rs = ps.executeQuery();
+		LeaderQueries lq = new LeaderQueries();
+		ArrayList<Tournament> tournaments = lq.getTournamentsForLeader(leader.getUUID());
+		ArrayList<Team> teams = lq.getTeamsForLeader(leader.getUUID());
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ModelAndView("leaderDashboard", "username", leader.getName());
+		return new ModelAndView("leaderDashboard", "view", new DashboardView(tournaments, teams));
 	}
 }

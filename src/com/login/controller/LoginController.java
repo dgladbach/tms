@@ -1,6 +1,5 @@
 package com.login.controller;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
+
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +22,19 @@ public class LoginController {
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse resp) {
 		String username = request.getParameter("username");
 
-		if ((username != null && loginUser(request)) || request.getSession().getAttribute("username") != null) {
-			try {
-				resp.sendRedirect(request.getContextPath() + "/l/dashboard");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return new ModelAndView("leaderDashboard", "username", request.getSession().getAttribute("username"));
+		if ((username != null && loginUser(request)) || request.getSession().getAttribute("leader") != null) {
+			// try {
+			// // resp.sendRedirect(request.getContextPath() + "/l/dashboard");
+			// // request.getRequestDispatcher("/l/dashboard").forward(request,
+			// // resp);
+			// } catch (IOException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// } catch (ServletException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+			return new ModelAndView("redirect:/l/dashboard");
 
 		} else {
 			return new ModelAndView("login");

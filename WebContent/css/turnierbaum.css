@@ -1,0 +1,64 @@
+body{
+    background-color: #ffffff;
+}
+.team_container{
+    background-color: #E1E6FA;
+    border: 1px solid #375D81;
+    border-radius: 5px;
+    max-height: 100px;
+    width: 300px;
+    overflow: hidden;
+    padding: 3px;
+    margin: 2px;
+}
+.match_container{
+    background-color: #E1E6FA;
+    border: 1px solid #375D81;
+    border-radius: 5px;
+    width: 220px;
+    overflow: hidden;
+    padding: 3px;
+    margin: 2px;
+}
+.team_image{
+    float: left;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #375D81;
+    margin: 3px;
+    background-color: #FFFFFF;
+}
+.team_name{
+    font-size: 1.3em;
+    color: #183152;
+}
+.team_points{
+    float: right;
+    font-size: 1.3em;
+    color: #183152;
+}
+.winner{
+    text-decoration: underline;
+}
+.team_image>img{
+    max-height: 100%;
+    width: auto;
+    margin: auto;
+}
+.img-resp{
+    max-height: 35px;
+    width: auto;
+}
+.ticker_container{
+    background-color: #E1E6FA;
+    font-size: 1.2em!important;
+    font-weight: normal!important;
+}
+ul#webTicker{
+    font-weight: normal!important;
+    font-size: 1.4em!important;
+}
+.next_match{
+    border: 1px solid #375D81;
+    padding: 3px;
+}
